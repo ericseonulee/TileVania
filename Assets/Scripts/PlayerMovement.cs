@@ -17,12 +17,14 @@ public class PlayerMovement : MonoBehaviour {
     Vector2 moveInput;
     Rigidbody2D playerRigidbody;
     Animator playerAnimator;
-    CapsuleCollider2D playerCapsuleCollider;
+    CapsuleCollider2D playerBodyCollider;
+    BoxCollider2D playerFeetCollider;
 
     void Start() {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerCapsuleCollider = GetComponent<CapsuleCollider2D>();
+        playerBodyCollider = GetComponent<CapsuleCollider2D>();
+        playerFeetCollider = GetComponent<BoxCollider2D>();
 
         if (playerRigidbody == null) {
             Debug.LogError("Player Rigidbody2D is null.");
@@ -34,14 +36,18 @@ public class PlayerMovement : MonoBehaviour {
             Debug.LogError("Player Animator is null."); 
         }
 
-        if (playerCapsuleCollider == null) {
+        if (playerBodyCollider == null) {
             Debug.LogError("Player Capsule Collider2D is null.");
+        }
+
+        if (playerFeetCollider == null) {
+            Debug.LogError("Player Box Collider2D is null.");
         }
     }
 
     void Update() {
-        isPlayerOnLadder = playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
-        isPlayerOnGround = playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        isPlayerOnLadder = playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+        isPlayerOnGround = playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
         canJump = isPlayerOnGround || isPlayerClimbing;
 
         Run();
