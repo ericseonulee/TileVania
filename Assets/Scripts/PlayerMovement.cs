@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour {
             isPlayerClimbing = false;
             playerAnimator.SetBool("isClimbing", false);
             playerRigidbody.gravityScale = gravityScaleAtStart;
+            playerAnimator.StopPlayback();
             return;
         }
 
