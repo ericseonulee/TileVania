@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour {
         if (isPlayerOnLadder && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
             playerAnimator.SetBool("isClimbing", false);
             isPlayerClimbing = false;
-            playerRigidbody.velocity += new Vector2(0f, jumpSpeed);
+            playerRigidbody.velocity += new Vector2(0f, jumpSpeed * 0.5f);
             playerRigidbody.gravityScale = gravityScaleAtStart;
         }
         else {
