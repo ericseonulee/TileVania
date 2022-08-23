@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour {
     private void OnJump(InputValue value) {
         if (!canJump) { return;}
 
-        if (isPlayerOnLadder && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
+        if (isPlayerClimbing && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
             playerAnimator.SetBool("isClimbing", false);
             isPlayerClimbing = false;
             playerRigidbody.velocity += new Vector2(0f, jumpSpeed * 0.5f);
