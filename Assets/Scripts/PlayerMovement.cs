@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
-    [SerializeField] private float climbSpeed = 5f;
-    [SerializeField] private float runSpeed = 5f;
-    [SerializeField] private float jumpSpeed = 5f;
-    private bool isPlayerClimbing;
-    private bool isPlayerOnLadder;
-    private bool isPlayerOnGround;
-    private bool canJump;
-    private float gravityScaleAtStart = 1f;
+    [SerializeField] private float _climbSpeed = 5f;
+    [SerializeField] private float _runSpeed = 5f;
+    [SerializeField] private float _jumpSpeed = 5f;
+    private bool _isPlayerClimbing;
+    private bool _isPlayerOnLadder;
+    private bool _isPlayerOnGround;
+    private bool _canJump;
+    private float _gravityScaleAtStart = 1f;
 
     Vector2 moveInput;
     Rigidbody2D playerRigidbody;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
         if (playerRigidbody == null) {
             Debug.LogError("Player Rigidbody2D is null.");
         }
-        gravityScaleAtStart = playerRigidbody.gravityScale;
+        _gravityScaleAtStart = playerRigidbody.gravityScale;
 
 
         if (playerAnimator == null) {
@@ -46,29 +46,29 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        isPlayerOnLadder = playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
-        isPlayerOnGround = playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
-        canJump = isPlayerOnGround || isPlayerClimbing;
+        _isPlayerOnLadder = playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
+        _isPlayerOnGround = playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        _canJump = _isPlayerOnGround || _isPlayerClimbing;
 
         Run();
 
-        if (isPlayerOnLadder && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))) {
-            isPlayerClimbing = true;
+        if (_isPlayerOnLadder && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))) {
+            _isPlayerClimbing = true;
         }
         ClimbLadder();
     }
 
     private void ClimbLadder() {
-        if (!isPlayerOnLadder) {
-            isPlayerClimbing = false;
+        if (!_isPlayerOnLadder) {
+            _isPlayerClimbing = false;
             playerAnimator.SetBool("isClimbing", false);
-            playerRigidbody.gravityScale = gravityScaleAtStart;
+            playerRigidbody.gravityScale = _gravityScaleAtStart;
             playerAnimator.StopPlayback();
             return;
         }
 
-        if (isPlayerClimbing) {
-            Vector2 playerVelocity = new Vector2(playerRigidbody.velocity.x, moveInput.y * climbSpeed);
+        if (_isPlayerClimbing) {
+            Vector2 playerVelocity = new Vector2(playerRigidbody.velocity.x, moveInput.y * _climbSpeed);
             playerRigidbody.velocity = playerVelocity;
 
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)) {
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             
             if (isPlayerMovingVertical()) {
-                if (isPlayerOnGround) {
+                if (_isPlayerOnGround) {
                     playerAnimator.SetBool("isClimbing", false);
                 }// also stop animator when top of ladder.
 
@@ -103,16 +103,16 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnJump(InputValue value) {
-        if (!canJump) { return;}
+        if (!_canJump) { return;}
 
-        if (isPlayerClimbing && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
+        if (_isPlayerClimbing && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
             playerAnimator.SetBool("isClimbing", false);
-            isPlayerClimbing = false;
-            playerRigidbody.velocity += new Vector2(0f, jumpSpeed * 0.5f);
-            playerRigidbody.gravityScale = gravityScaleAtStart;
+            _isPlayerClimbing = false;
+            playerRigidbody.velocity += new Vector2(0f, _jumpSpeed * 0.5f);
+            playerRigidbody.gravityScale = _gravityScaleAtStart;
         }
         else {
-            playerRigidbody.velocity += new Vector2(0f, jumpSpeed);
+            playerRigidbody.velocity += new Vector2(0f, _jumpSpeed);
         }
     }
 
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Run() {
-        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidbody.velocity.y);
+        Vector2 playerVelocity = new Vector2(moveInput.x * _runSpeed, playerRigidbody.velocity.y);
         playerRigidbody.velocity = playerVelocity;
         
         if (isPlayerMovingHorizontal()) {
