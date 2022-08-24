@@ -7,13 +7,15 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private float _runSpeed = 5f;
-    [SerializeField] private float _jumpSpeed = 5f;
+    [SerializeField] private float _jumpSpeed = 20f;
+    [SerializeField] private Vector2 _deathKick = new Vector2 (10f, 20f);
+    [SerializeField] private bool _isAlive = true;
     private bool _isPlayerClimbing;
     private bool _isPlayerOnLadder;
     private bool _isPlayerOnGround;
     private bool _canJump;
     private float _gravityScaleAtStart = 1f;
-    private bool _isAlive = true;
+    
 
     Vector2 moveInput;
     Rigidbody2D playerRigidbody;
@@ -127,6 +129,9 @@ public class PlayerMovement : MonoBehaviour {
     private void PlayerDie() {
         if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) {
             _isAlive = false;
+            playerAnimator.SetTrigger("playerDeath");
+            playerRigidbody.velocity = _deathKick;
+            Physics.IgnoreLayerCollision(8, 6);
         }
     }
 
