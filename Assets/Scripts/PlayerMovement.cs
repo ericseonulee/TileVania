@@ -127,11 +127,10 @@ public class PlayerMovement : MonoBehaviour {
         moveInput = value.Get<Vector2>();
     }
     private void PlayerDie() {
-        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) {
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards"))) {
             _isAlive = false;
             playerAnimator.SetTrigger("playerDeath");
             playerRigidbody.velocity = _deathKick;
-            Physics.IgnoreLayerCollision(8, 6);
         }
     }
 
