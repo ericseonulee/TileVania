@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool _isPlayerOnGround;
     private bool _canJump;
     private float _gravityScaleAtStart = 1f;
+    private bool _isAlive = true;
 
     Vector2 moveInput;
     Rigidbody2D playerRigidbody;
@@ -46,6 +47,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
+        if (!_isAlive) { return; };
+
         _isPlayerOnLadder = playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
         _isPlayerOnGround = playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
         _canJump = _isPlayerOnGround || _isPlayerClimbing;
@@ -56,6 +59,7 @@ public class PlayerMovement : MonoBehaviour {
             _isPlayerClimbing = true;
         }
         ClimbLadder();
+        PlayerDie();
     }
 
     private void ClimbLadder() {
@@ -103,7 +107,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnJump(InputValue value) {
-        if (!_canJump) { return;}
+        if (!_isAlive || !_canJump) { return;}
 
         if (_isPlayerClimbing && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
             playerAnimator.SetBool("isClimbing", false);
@@ -117,7 +121,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnMove(InputValue value) {
+        if (!_isAlive) { return; };
         moveInput = value.Get<Vector2>();
+    }
+    private void PlayerDie() {
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) {
+            _isAlive = false;
+        }
     }
 
     private void Run() {
