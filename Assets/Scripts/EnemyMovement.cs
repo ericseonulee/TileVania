@@ -21,8 +21,10 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        _moveSpeed = -_moveSpeed;
-        EnemyFlipSprite();
+        if (collision.tag == "Ground") {
+            _moveSpeed = -_moveSpeed;
+            EnemyFlipSprite();
+        }
     }
 
     private void EnemyFlipSprite() {

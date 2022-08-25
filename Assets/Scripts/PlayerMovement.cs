@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float _jumpSpeed = 20f;
     [SerializeField] private Vector2 _deathKick = new Vector2 (10f, 20f);
     [SerializeField] private bool _isAlive = true;
+    [SerializeField] private GameObject _arrow;
+    [SerializeField] private Transform _bow;
     private bool _isPlayerClimbing;
     private bool _isPlayerOnLadder;
     private bool _isPlayerOnGround;
@@ -106,6 +108,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool isPlayerMovingVertical() {
         return Mathf.Abs(playerRigidbody.velocity.y) > Mathf.Epsilon;
+    }
+
+    private void OnFire(InputValue value) {
+        if (!_isAlive || _isPlayerClimbing) { return;}
+
+        if (Input.GetKey(KeyCode.A)) {
+            playerAnimator.SetTrigger("isShooting");
+            Instantiate(_arrow, _bow.position, transform.rotation);
+        }
+        if (Input.GetKeyUp(KeyCode.A)) {
+            playerAnimator.SetTrigger("isNotShooting");
+        }
     }
 
     private void OnJump(InputValue value) {
