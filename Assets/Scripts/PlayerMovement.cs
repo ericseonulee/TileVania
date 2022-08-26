@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] private float _climbSpeed = 5f;
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
+        if (Input.GetKey(KeyCode.R)) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
         if (!_isAlive) { return; };
 
         _isPlayerOnLadder = playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing"));
@@ -128,7 +130,7 @@ public class PlayerMovement : MonoBehaviour {
         if (_isPlayerClimbing && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))) {
             playerAnimator.SetBool("isClimbing", false);
             _isPlayerClimbing = false;
-            playerRigidbody.velocity += new Vector2(0f, _jumpSpeed * 0.5f);
+            playerRigidbody.velocity += new Vector2(0f, _jumpSpeed * 0.8f);
             playerRigidbody.gravityScale = _gravityScaleAtStart;
         }
         else {
