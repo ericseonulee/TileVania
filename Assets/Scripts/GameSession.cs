@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour {
     [SerializeField] private int _playerLives = 3;
+    [SerializeField] private int _playerScore = 0;
+
     void Awake() {
         int numGameSession = FindObjectsOfType<GameSession>().Length;
         
@@ -37,5 +39,9 @@ public class GameSession : MonoBehaviour {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void AddScore() {
+        _playerScore++;
     }
 }
