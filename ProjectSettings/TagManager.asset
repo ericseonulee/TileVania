@@ -22,7 +22,7 @@ TagManager:
   - Enemies
   - Hazards
   - Arrow
-  - 
+  - Interactables
   - 
   - 
   - 
@@ -58,6 +58,9 @@ TagManager:
     locked: 0
   - name: Hazards
     uniqueID: 719731229
+    locked: 0
+  - name: Interactables
+    uniqueID: 927885837
     locked: 0
   - name: Enemies
     uniqueID: 846574393
