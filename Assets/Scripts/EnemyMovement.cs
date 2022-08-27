@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour {
     private EnemyState _enemyState = EnemyState.Idling;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private int _enemyLives = 10;
+    [SerializeField] private LevelExit _bossExit;
     private bool _isEnemyOnGround;
     private bool _isStateEnded = true;
     private bool _isFlickerEnabled = false;
@@ -86,6 +87,10 @@ public class EnemyMovement : MonoBehaviour {
             Invoke("disableFlicker", 0.5f);
             Destroy(other.gameObject);
             if (isEnemyDead(Arrow.arrowDamage())) {
+                Vector3 lastPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 1, 0);
+                Debug.Log(lastPosition);
+                LevelExit.SpawnExit(_bossExit, lastPosition);
+                _isFlickerEnabled = true;
                 Destroy(gameObject);
             }
         }

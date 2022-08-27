@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7494227362948837463}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 45.5, y: 28.5, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 1
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 3
   _enemyLives: 1
+  _bossExit: {fileID: 8033807592740365286, guid: 78cbe83e813557c46b9f51677e7d04a9, type: 3}
 --- !u!61 &7494227362948837462
 BoxCollider2D:
   m_ObjectHideFlags: 0

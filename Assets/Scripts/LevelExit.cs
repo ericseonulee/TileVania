@@ -25,4 +25,8 @@ public class LevelExit : MonoBehaviour {
         FindObjectOfType<ScenePersist>().ResetScenePersist();
         SceneManager.LoadScene(nextSceneIndex);
     }
+
+    public static void SpawnExit(LevelExit bossExit, Vector3 position) {
+        Instantiate(bossExit, position, bossExit.transform.rotation);
+    }
 }
