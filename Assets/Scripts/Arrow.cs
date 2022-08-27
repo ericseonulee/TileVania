@@ -7,6 +7,10 @@ public class Arrow : MonoBehaviour {
     private Rigidbody2D _arrowRigidbody;
     [SerializeField] private float _arrowSpeed = 20f;
     private float _playerHorizontalSpeed;
+    private static int _arrowDamage = 1;
+    public static int arrowDamage() {
+        return _arrowDamage;
+    }
 
     void Start() {
         _arrowRigidbody = GetComponent<Rigidbody2D>();
@@ -27,8 +31,8 @@ public class Arrow : MonoBehaviour {
     }
 
     void Update() {
-        _arrowRigidbody.velocity = new Vector2(_playerHorizontalSpeed * _arrowSpeed, 0); ;
-    }
+            _arrowRigidbody.velocity = new Vector2(_playerHorizontalSpeed * _arrowSpeed, 0); ;
+        }
 
     private void FlipSprite() {
         transform.localScale = new Vector2(Mathf.Sign(_playerHorizontalSpeed), 1f);
@@ -39,6 +43,5 @@ public class Arrow : MonoBehaviour {
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
-
     }
 }

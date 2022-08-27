@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - Bouncy
+  - Arrow
+  - BossGoobie
   layers:
   - Default
   - TransparentFX

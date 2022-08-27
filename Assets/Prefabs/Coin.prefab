@@ -114,7 +114,7 @@ Animator:
   m_GameObject: {fileID: 8611587356485240491}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53056b603f8bc7e479dbc3bbeb9644c8, type: 2}
+  m_Controller: {fileID: 9100000, guid: d64d23c482b97ed4e9d31ee12e81d471, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPickupSFX: {fileID: 8300000, guid: 3a1f5321eddf3ff42bd4fb7d6545f989, type: 3}
+  _pointsForCoinPickup: 100
 --- !u!82 &-8320205837658388490
 AudioSource:
   m_ObjectHideFlags: 0
