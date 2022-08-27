@@ -9,7 +9,7 @@ public class CoinPickup : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player" && collision.GetType() == typeof(CapsuleCollider2D)) {
             FindObjectOfType<GameSession>().AddToScore(_pointsForCoinPickup);
-            AudioSource.PlayClipAtPoint(coinPickupSFX, Camera.main.transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(coinPickupSFX, transform.position, 0.5f);
             Destroy(gameObject);
         }
     }
